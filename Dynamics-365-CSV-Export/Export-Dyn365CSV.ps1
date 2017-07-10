@@ -1,5 +1,4 @@
 #Requires -modules Microsoft.Xrm.Data.PowerShell
-Import-Module Microsoft.Xrm.Data.PowerShell
 
 #Connect to the Dynamics 365 instance of yout choice
 Connect-CrmOnlineDiscovery -InteractiveMode
