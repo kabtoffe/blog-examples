@@ -45,8 +45,8 @@ $FieldsMappings = @{
 
 $OutputFile = "accounts.csv" #The filename of the output file
 
-#Get all records of the selected type and pipe the output to Select-Object
-(Get-CrmRecords -EntityLogicalName $EntityLogicalName -Fields ([string[]]$FieldsMappings.Keys) -AllRows).CrmRecords |
+#Get all records of the selected type and pipe the output to ConvertTo-CustomObject
+(Get-CrmRecords -EntityLogicalName $EntityLogicalName -Fields $FieldsMappings.Keys -AllRows).CrmRecords |
     #Convert our result object to a new object with the right attributenames and pipe the result to Export-CSV
     ConvertTo-CustomObject -MappingTable $FieldsMappings |
     #Output the results to CSV-file
