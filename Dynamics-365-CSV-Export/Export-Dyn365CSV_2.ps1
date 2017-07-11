@@ -15,9 +15,9 @@ function ConvertTo-CustomObject{
 
     PROCESS {
 
-        $PropertyTable = @{}
+        $Property = @{}
         $MappingTable.Keys | ForEach-Object {
-            $PropertyTable.Add(
+            $Property.Add(
                 #New header
                 $MappingTable[$_],
                 
@@ -26,11 +26,9 @@ function ConvertTo-CustomObject{
             )
         }
 
-        New-Object psobject -Property $PropertyTable
+        New-Object psobject -Property $Property
     }    
 }
-
-
 
 
 #Connect to the Dynamics 365 instance of yout choice
@@ -49,7 +47,7 @@ $OutputFile = "accounts.csv" #The filename of the output file
 
 #Get all records of the selected type and pipe the output to Select-Object
 (Get-CrmRecords -EntityLogicalName $EntityLogicalName -Fields ([string[]]$FieldsMappings.Keys) -AllRows).CrmRecords |
-    #Only include the attributes that are to be exported and pipe the result to Export-CSV
+    #Convert our result object to a new object with the right attributenames and pipe the result to Export-CSV
     ConvertTo-CustomObject -MappingTable $FieldsMappings |
     #Output the results to CSV-file
     Export-Csv -Path $OutputFile -Encoding Default -NoTypeInformation
