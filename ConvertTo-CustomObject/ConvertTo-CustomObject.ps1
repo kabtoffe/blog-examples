@@ -4,7 +4,7 @@
     param(
         #Input the object to transform
         [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
-        $SourceObject,
+        $InputObject,
 
         #Column mappings
         [Parameter(Mandatory=$True)]
@@ -24,11 +24,14 @@
 "@
 )
                     }
+        #Remove the last trailing comma
         $PropertyMappingExpression = $PropertyMappingExpression.Substring(0,$PropertyMappingExpression.Length-1)
+        
+        #Invoke the string expression and store it in a parameter
         $SelectObjectParameter = Invoke-Expression $PropertyMappingExpression
     }
 
     PROCESS {
-        $SourceObject | Select-Object -Property $SelectObjectParameter
+        $InputObject | Select-Object -Property $SelectObjectParameter
     }    
 }
