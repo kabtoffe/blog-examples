@@ -3,7 +3,7 @@ function Get-FilteredFeed{
 
     param(
         #Input feed xml content
-        [Parameter(Mandatory=$True)]
+        [Parameter(Mandatory=$True,ValueFromPipeline=$True)]
         [xml]$FeedXml,
 
         #Category to keep
