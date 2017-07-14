@@ -41,6 +41,5 @@ Describe "ConvertTo-CustomObject" {
         $result.Count | Should Be 2
         $result[1].NewAge | Should Be 7
     }
-
-    It 
+    
 }
