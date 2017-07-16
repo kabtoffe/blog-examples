@@ -12,20 +12,20 @@
     )
 
     BEGIN {
-        $PropertyMappingExpression = ""
+        $PropertyMappings = @()
         $MappingTable.Keys | ForEach-Object {
 
-            $PropertyMappingExpression += (
+            $PropertyMappings += (
                 @"
                     @{
                         N="$($MappingTable[$_])"
                         E={`$_.$_}
-                    },
+                    }
 "@
 )
                     }
-        #Remove the last trailing comma
-        $PropertyMappingExpression = $PropertyMappingExpression.Substring(0,$PropertyMappingExpression.Length-1)
+        #Join with a comma
+        $PropertyMappingExpression = $PropertyMappings -join ","
         
         #Invoke the string expression and store it in a parameter
         $SelectObjectParameter = Invoke-Expression $PropertyMappingExpression
